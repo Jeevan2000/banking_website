@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+Transaction Info
+{% endblock title %}
+{% block body %}
+
+<div>
+<h1 style="margin-top: -50px;padding: 25px;
+text-align: center;font-family: 'Noto Sans JP'; text-decoration-style: solid;">Transaction History</h1>
+<div style="margin: 20px;">
+    <table class="table table-success table-bordered border-secondary table-striped">
+
+        <tr style="text-align: center;font-family: 'Noto Sans JP';font-weight:bold;">
+            <th>Sender A/C No.</th>
+            <th>Sender Name</th>
+            <th>Receiver A/C No.</th>
+            <th>Receiver Name</th>
+            <th>Amount</th>
+            <th>Time</th>
+        </tr>
+
+        {% for i in hist %}
+        <tr style="text-align: center;">
+            <td>{{ i.sender_id }}</td>
+            <td>{{ i.sender_name }}</td>
+            <td>{{ i.receiver_id }}</td>
+            <td>{{ i.receiver_name }}</td>
+            <td>
+                <h6>&#8377 {{ i.amount_fee }}</h6>
+            </td>
+            <td>{{ i.time }}</td>
+
+        </tr>
+
+
+
+        {% endfor %}
+
+    </table>
+</div>
+</div>
+
+{% endblock body %}

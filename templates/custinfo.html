@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block title %}
+Customer Info
+{% endblock title %}
+{% block body %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<div style=" padding-bottom: 40px;">
+    <h1 style="margin-top: -50px;padding: 25px;
+    text-align: center;font-family: 'Noto Sans JP', sans-serif; text-decoration-style: solid;">Finance Customer Information</h1>
+    <div style="margin: 20px;">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header" style="background-color: rgb(95,87,87);
+                    text-align: center;font-family: 'Noto Sans JP'; text-decoration-style: solid;
+                    padding: 5px; height: 50px; font-size: x-large;
+                    color: rgb(247, 246, 242);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                      </svg>
+                     Customer Details</div>
+                    <div class="card-body" style="background-color: rgba(219, 216, 212, 0.13); display: flex; align-content: space-around;">
+
+                        {% for i in info %}
+                        <pre  style="font-size: 20px;font-family: ''Noto Sans JP', sans-serif';
+                        font-weight: 400;">
+    Branch Name  :    {{i.branchname}}
+    IFSC Code    :    {{i.ifsc}}
+    Name         :    {{ i.name }} 
+    Account No.  :    {{ i.id }} 
+    Email        :    {{ i.email }} 
+    Balance      :    &#8377 {{i.balance }}  
+    Address      :    {{i.address}}
+    Scheme Desc  :    {{i.scheme}}
+                        </pre>
+                        
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header" style=" background-color: rgb(95, 87, 87);;
+                    text-align: center;font-family: 'Noto Sans JP'; text-decoration-style: solid;
+                    padding: 5px; height: 50px; font-size: x-large;
+                    color: rgb(247, 246, 242);"
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16">
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542.637 0 .987-.254 1.194-.542.226-.314.306-.705.306-.958a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                        <path d="M16 6.5h-5.551a2.678 2.678 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5c-.963 0-1.613-.412-2.006-.958A2.679 2.679 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-6z"/>
+                      </svg>
+
+
+                    Make Payment</div>
+                    <div class="card-body" style="background-color: rgba(219, 216, 212, 0.13);">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label" style="font-size: 18px;font-family: ''Noto Sans JP', sans-serif';
+                                font-weight: 600;">Account Number</label>
+                                <input type="number" name="acno" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp">
+
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" style="font-size: 18px;font-family: ''Noto Sans JP', sans-serif';
+                                font-weight: 600;">Receipts Name</label>
+                                <input type="text" name="receiptname" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <label class="form-label" style="font-size: 18px;font-family: ''Noto Sans JP', sans-serif';
+                            font-weight: 600;">Amount</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text" style="font-weight: 600;">&#8377</div>
+                                </div>
+
+                            <input type="number" name="amount" class="form-control"  id="inlineFormInputGroup"> <br>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-outline-primary btn-sm" style="margin-left: 460px;">
+                            Confirm Payment    
+                            </button>
+
+                            
+                            {% if invalid_account_name %}
+                            <script>
+                                swal({
+                                    icon: 'error',
+                                    title: 'Oops',
+                                    text: "Receiver's Name Incorrect",
+
+                                });
+                            </script>
+                            {% endif %}
+                            {% if invalid_account_num %}
+                            <script>
+                                swal({
+                                    icon: 'error',
+                                    title: 'Oops',
+                                    text: "Receiver's Account Number does not exit",
+
+                                });
+                            </script>
+                            {% endif %}
+                            {% if lessthanzero %}
+                            <script>
+                                swal({
+                                    icon: 'error',
+                                    title: 'Oops',
+                                    text: "Amount cannot be negative",
+
+                                });
+                            </script>
+                            {% endif %}
+
+                            {% if insufficintbalance %}
+                            <script>
+                                swal({
+                                    icon: 'error',
+                                    title: 'Oops',
+                                    text: "Insufficient Balance in Account",
+
+                                });
+                            </script>
+                            {% endif %}
+
+                            {% if successful %}
+                            <script>
+                                swal({
+                                    icon: 'success',
+                                    title: 'Payment Successful',
+
+
+                                });
+                            </script>
+                            {% endif %}
+
+                            <script>
+                                if (window.history.replaceState) {
+                                    window.history.replaceState(null, null, window.location.href);
+                                }
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock body %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}
+Customer Table
+{% endblock title %}
+{% block body %}>
+<div style="  background-size: cover;">
+    <h1 style="margin-top: -70px;padding: 25px;
+    text-align: center;font-family: 'Noto Sans JP'; text-decoration-style: solid;">Customers</h1>
+    <div style="margin: 20px;">
+        <table class="table table-success table-bordered table-striped border-secondary overflow-auto">
+
+            <tr style="text-align: center; text-align: center;font-family: 'Noto Sans JP';font-weight:bold;">
+                <th>Account</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Balance</th>
+                <th>Details</th>
+            </tr>
+
+            {% for i in custs %}
+            <tr style="text-align: center;" >
+                <td >{{ i.id }}</td>
+                <td>{{ i.name }}</td>
+                <td >{{ i.email }}</td>
+                <td >
+                    <h6>&#8377 {{i.balance}}</h6>
+                </td>
+                <td><a href="custinfo/{{ i.id }}/"><button type="button" class="btn" style="background-color: rgba(56, 60, 61, 0.897);
+                color: rgb(255, 255, 254);
+                font-weight: 500;">View Customer</button></a></td>
+
+            </tr>
+
+
+
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+
+{% endblock body %}
