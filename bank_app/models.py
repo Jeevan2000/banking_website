@@ -17,6 +17,6 @@ class TransactionHistory(models.Model):
     receiver_id=models.IntegerField()
     receiver_name=models.CharField(max_length=100)
     amount_fee=models.IntegerField()
-    time=models.CharField(max_length=100)
+    time=models.DateTimeField(auto_now_add=True)
 
     

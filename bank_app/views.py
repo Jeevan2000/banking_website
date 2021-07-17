@@ -14,8 +14,9 @@ def customers(request):
     return render(request,'customer.html',{'custs':cust})
 
 def transactionhistory(request):
-    tran=TransactionHistory.objects.all()
-    return render(request,'transaction.html',{'hist':tran})
+    if request.method == 'GET':
+        tran=TransactionHistory.objects.filter().order_by('-time')
+        return render(request,'transaction.html',{'hist':tran})
 
 def custinfo(request,id):
     data=NewCustomer.objects.filter(id=id)
@@ -66,8 +67,7 @@ def custinfo(request,id):
         now=datetime.now()
         dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
         #print("date and time =", dt_string)
-        TransactionHistory(sender_id=sender_id, sender_name=sender_name, receiver_id=int(acno), receiver_name=str(recename), 
-        amount_fee=int(amount), time=dt_string).save()
+        TransactionHistory(sender_id=sender_id, sender_name=sender_name, receiver_id=int(acno), receiver_name=str(recename),amount_fee=int(amount)).save()
 
         return render(request,'custinfo.html',{'customer':sender,'successful':1,'curr_id':acno,'info':data})      
         
