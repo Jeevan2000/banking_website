@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import NewCustomer,TransactionHistory
 from django.contrib import messages
-from datetime import date, datetime
+
 # Create your views here.
 def home(request):
     return render(request,'home.html')
@@ -64,9 +64,7 @@ def custinfo(request,id):
         check_acno.balance=check_acno.balance+int(amount)
         check_acno.save()
         
-        now=datetime.now()
-        dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
-        #print("date and time =", dt_string)
+        
         TransactionHistory(sender_id=sender_id, sender_name=sender_name, receiver_id=int(acno), receiver_name=str(recename),amount_fee=int(amount)).save()
 
         return render(request,'custinfo.html',{'customer':sender,'successful':1,'curr_id':acno,'info':data})      

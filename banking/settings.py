@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(&aq$)==8nlu=w)k%zh(zksq2@vvn#*wbvk^=kftqrapi8@0l-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','banking-system-j08.herokuapp.com/']
+ALLOWED_HOSTS = ['127.0.0.1','banking-system-j08.herokuapp.com']
 
 
 # Application definition
@@ -127,6 +127,7 @@ STATICFILES_DIRS=[
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
