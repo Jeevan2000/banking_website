@@ -109,13 +109,13 @@ Customer Info
                                 swal({
                                     icon: 'error',
                                     title: 'Oops',
-                                    text: "Amount cannot be negative",
+                                    text: "Amount cannot be negative or zero",
 
                                 });
                             </script>
                             {% endif %}
 
-                            {% if insufficintbalance %}
+                            {% if insufficientbalance %}
                             <script>
                                 swal({
                                     icon: 'error',
